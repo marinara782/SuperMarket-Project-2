@@ -14,11 +14,11 @@ package com.jjjwelectronics.printer;
  * 
  * @author JJJW Electronics LLP
  */
-public class ReceiptPrinterBronze extends AbstractReceiptPrinter {
+public class ReceiptPrinter extends AbstractReceiptPrinter {
 	/**
 	 * Creates a receipt printer.
 	 */
-	public ReceiptPrinterBronze() {}
+	public ReceiptPrinter() {}
 
 	@Override
 	protected void notifyLowInk() {}

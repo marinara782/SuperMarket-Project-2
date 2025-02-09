@@ -11,27 +11,27 @@ import com.jjjwelectronics.EmptyDevice;
 import com.jjjwelectronics.IDevice;
 import com.jjjwelectronics.IDeviceListener;
 import com.jjjwelectronics.OverloadedDevice;
+import com.jjjwelectronics.printer.ReceiptPrinter;
 import com.jjjwelectronics.printer.ReceiptPrinterListener;
-import com.jjjwelectronics.printer.ReceiptPrinterSilver;
 
 import ca.ucalgary.seng300.simulation.SimulationException;
 import powerutility.NoPowerException;
 import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
-public class ReceiptPrinterSilverTest {
-	private ReceiptPrinterSilver printer;
+public class ReceiptPrinterTest {
+	private ReceiptPrinter printer;
 	private int found;
 
 	@Before
 	public void setup() throws OverloadedDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		PowerGrid.engageUninterruptiblePowerSource();
 		PowerGrid.instance().forcePowerRestore();
 		printer.plugIn(PowerGrid.instance());
 		printer.turnOn();
 		printer.addPaper(2);
-		printer.addInk(ReceiptPrinterSilver.CHARACTERS_PER_LINE);
+		printer.addInk(ReceiptPrinter.CHARACTERS_PER_LINE);
 		found = 0;
 	}
 
@@ -39,19 +39,18 @@ public class ReceiptPrinterSilverTest {
 	public void teardown() {
 		PowerGrid.reconnectToMains();
 		PowerGrid.instance().forcePowerRestore();
-	}
+	}	
 
-	@Test
+	@Test(expected = UnsupportedOperationException.class)
 	public void testPaperRemaining() {
-		assertEquals(2, printer.paperRemaining(), 1);
+		printer.paperRemaining();
 	}
 
-	@Test
+	@Test(expected = UnsupportedOperationException.class)
 	public void testInkRemaining() {
-		assertEquals(ReceiptPrinterSilver.CHARACTERS_PER_LINE, printer.inkRemaining(),
-			ReceiptPrinterSilver.CHARACTERS_PER_LINE / 2);
+		printer.inkRemaining();
 	}
-
+	
 	@Test
 	public void testPrintFullLine() throws EmptyDevice, OverloadedDevice {
 		printer.register(new ReceiptPrinterListener() {
@@ -84,20 +83,20 @@ public class ReceiptPrinterSilverTest {
 			public void thePrinterIsOutOfPaper() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowPaper() {
-				// fail();
+				fail();
 			}
 
 			@Override
 			public void thePrinterIsOutOfInk() {
 				found++;
 			}
-
+			
 			@Override
 			public void thePrinterHasLowInk() {
-				// fail();
+				fail();
 			}
 
 			@Override
@@ -106,7 +105,7 @@ public class ReceiptPrinterSilverTest {
 			}
 		});
 
-		for(int i = 0; i < ReceiptPrinterSilver.CHARACTERS_PER_LINE; i++)
+		for(int i = 0; i < ReceiptPrinter.CHARACTERS_PER_LINE; i++)
 			printer.print('a');
 
 		assertEquals(1, found);
@@ -114,7 +113,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test
 	public void testPrintWhitespace() throws OverloadedDevice, EmptyDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.plugIn(PowerGrid.instance());
 		printer.turnOn();
 		printer.addPaper(1);
@@ -148,10 +147,10 @@ public class ReceiptPrinterSilverTest {
 			public void thePrinterIsOutOfPaper() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowPaper() {
-				// fail();
+				fail();
 			}
 
 			@Override
@@ -163,10 +162,10 @@ public class ReceiptPrinterSilverTest {
 			public void inkHasBeenAddedToThePrinter() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowInk() {
-				// fail();
+				fail();
 			}
 		});
 
@@ -176,7 +175,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = EmptyDevice.class)
 	public void testNoPaper() throws OverloadedDevice, EmptyDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.plugIn(PowerGrid.instance());
 		printer.turnOn();
 		printer.addInk(1);
@@ -185,7 +184,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = EmptyDevice.class)
 	public void testNoPaper2() throws OverloadedDevice, EmptyDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.plugIn(PowerGrid.instance());
 		printer.turnOn();
 		printer.addInk(1);
@@ -194,7 +193,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = OverloadedDevice.class)
 	public void testLineTooLong() throws OverloadedDevice, EmptyDevice {
-		for(int i = 0; i < ReceiptPrinterSilver.CHARACTERS_PER_LINE; i++)
+		for(int i = 0; i < ReceiptPrinter.CHARACTERS_PER_LINE; i++)
 			printer.print(' ');
 
 		printer.register(new ReceiptPrinterListener() {
@@ -227,7 +226,7 @@ public class ReceiptPrinterSilverTest {
 			public void thePrinterIsOutOfPaper() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowPaper() {
 				fail();
@@ -242,7 +241,7 @@ public class ReceiptPrinterSilverTest {
 			public void inkHasBeenAddedToThePrinter() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowInk() {
 				fail();
@@ -253,7 +252,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test
 	public void testTwoLines() throws OverloadedDevice, EmptyDevice {
-		for(int i = 0; i < ReceiptPrinterSilver.CHARACTERS_PER_LINE; i++)
+		for(int i = 0; i < ReceiptPrinter.CHARACTERS_PER_LINE; i++)
 			printer.print('a');
 
 		printer.print('\n');
@@ -289,10 +288,10 @@ public class ReceiptPrinterSilverTest {
 			public void thePrinterIsOutOfPaper() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowPaper() {
-				// fail();
+				fail();
 			}
 
 			@Override
@@ -304,10 +303,10 @@ public class ReceiptPrinterSilverTest {
 			public void inkHasBeenAddedToThePrinter() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowInk() {
-				// fail();
+				fail();
 			}
 		});
 		printer.print(' ');
@@ -317,7 +316,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test
 	public void testTab() throws OverloadedDevice, EmptyDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.plugIn(PowerGrid.instance());
 		printer.turnOn();
 		printer.register(new ReceiptPrinterListener() {
@@ -350,7 +349,7 @@ public class ReceiptPrinterSilverTest {
 			public void thePrinterIsOutOfPaper() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowPaper() {
 				fail();
@@ -365,7 +364,7 @@ public class ReceiptPrinterSilverTest {
 			public void inkHasBeenAddedToThePrinter() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterHasLowInk() {
 				fail();
@@ -377,7 +376,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test
 	public void testPrintAndRunOutOfPaper() throws OverloadedDevice, EmptyDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.plugIn(PowerGrid.instance());
 		printer.turnOn();
 		printer.addPaper(1);
@@ -416,7 +415,7 @@ public class ReceiptPrinterSilverTest {
 			public void thePrinterHasLowPaper() {
 				fail();
 			}
-
+			
 			@Override
 			public void thePrinterIsOutOfInk() {
 				found++;
@@ -439,7 +438,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = EmptyDevice.class)
 	public void testPrintWithoutInk() throws OverloadedDevice, EmptyDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.plugIn(PowerGrid.instance());
 		printer.turnOn();
 		printer.addPaper(1);
@@ -468,7 +467,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = SimulationException.class)
 	public void testRemove3() {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.removeReceipt();
 	}
 
@@ -484,7 +483,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = OverloadedDevice.class)
 	public void testAddTooMuchInk() throws OverloadedDevice, EmptyDevice {
-		printer.addInk(ReceiptPrinterSilver.MAXIMUM_INK + 1);
+		printer.addInk(ReceiptPrinter.MAXIMUM_INK + 1);
 	}
 
 	@Test(expected = SimulationException.class)
@@ -494,7 +493,7 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = OverloadedDevice.class)
 	public void testAddTooMuchPaper() throws OverloadedDevice, EmptyDevice {
-		printer.addPaper(ReceiptPrinterSilver.MAXIMUM_PAPER + 1);
+		printer.addPaper(ReceiptPrinter.MAXIMUM_PAPER + 1);
 	}
 
 	@Test
@@ -618,25 +617,25 @@ public class ReceiptPrinterSilverTest {
 
 	@Test(expected = NoPowerException.class)
 	public void testPrintWhileTurnedOff() throws EmptyDevice, OverloadedDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.print(' ');
 	}
 
 	@Test(expected = NoPowerException.class)
 	public void testCutPaperWhileTurnedOff() throws EmptyDevice, OverloadedDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.cutPaper();
 	}
 
 	@Test(expected = NoPowerException.class)
 	public void testAddInkWhileTurnedOff() throws EmptyDevice, OverloadedDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.addInk(0);
 	}
 
 	@Test(expected = NoPowerException.class)
 	public void testAddPaperWhileTurnedOff() throws EmptyDevice, OverloadedDevice {
-		printer = new ReceiptPrinterSilver();
+		printer = new ReceiptPrinter();
 		printer.addPaper(0);
 	}
 }
