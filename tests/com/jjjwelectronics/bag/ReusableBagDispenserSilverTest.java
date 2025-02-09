@@ -11,9 +11,6 @@ import com.jjjwelectronics.EmptyDevice;
 import com.jjjwelectronics.IDevice;
 import com.jjjwelectronics.IDeviceListener;
 import com.jjjwelectronics.OverloadedDevice;
-import com.jjjwelectronics.bag.ReusableBag;
-import com.jjjwelectronics.bag.ReusableBagDispenserListener;
-import com.jjjwelectronics.bag.ReusableBagDispenserSilver;
 
 import ca.ucalgary.seng300.simulation.InvalidArgumentSimulationException;
 import ca.ucalgary.seng300.simulation.NullPointerSimulationException;

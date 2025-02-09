@@ -12,7 +12,7 @@ import com.jjjwelectronics.IDevice;
 import com.jjjwelectronics.IDeviceListener;
 import com.jjjwelectronics.OverloadedDevice;
 import com.jjjwelectronics.bag.ReusableBag;
-import com.jjjwelectronics.bag.ReusableBagDispenserBronze;
+import com.jjjwelectronics.bag.ReusableBagDispenser;
 import com.jjjwelectronics.bag.ReusableBagDispenserListener;
 
 import ca.ucalgary.seng300.simulation.InvalidArgumentSimulationException;
@@ -22,7 +22,7 @@ import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
 public class ReusableBagDispenserBronzeTest {
-	ReusableBagDispenserBronze dispenser;
+	ReusableBagDispenser dispenser;
 	ReusableBag bag;
 	int found;
 	int count;
@@ -32,7 +32,7 @@ public class ReusableBagDispenserBronzeTest {
 		found = 0;
 		count = 0;
 		bag = new ReusableBag();
-		dispenser = new ReusableBagDispenserBronze(2);
+		dispenser = new ReusableBagDispenser(2);
 		assertEquals(2, dispenser.getCapacity());
 		PowerGrid.engageUninterruptiblePowerSource();
 		PowerGrid.instance().forcePowerRestore();
@@ -48,7 +48,7 @@ public class ReusableBagDispenserBronzeTest {
 
 	@Test(expected = InvalidArgumentSimulationException.class)
 	public void testBadCreate() {
-		new ReusableBagDispenserBronze(0);
+		new ReusableBagDispenser(0);
 	}
 
 	@Test(expected = NullPointerSimulationException.class)

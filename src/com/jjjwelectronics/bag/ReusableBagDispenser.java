@@ -7,12 +7,12 @@ import ca.ucalgary.seng300.simulation.InvalidArgumentSimulationException;
 /**
  * Represents the reusable-bag dispenser.
  * <p>
- * As a more economical model than Gold, Silver supports an inexact sensor to
- * count the quantity of bags remaining in the device.
+ * As our most economical model, Bronze does not support counting the quantity
+ * of bags remaining in the device.
  * 
  * @author JJJW Electronics LLP
  */
-public class ReusableBagDispenserSilver extends AbstractReusableBagDispenser {
+public class ReusableBagDispenser extends AbstractReusableBagDispenser {
 	private static final Random random = new Random();
 
 	/**
@@ -23,7 +23,7 @@ public class ReusableBagDispenserSilver extends AbstractReusableBagDispenser {
 	 * @throws InvalidArgumentSimulationException
 	 *             if capacity &le;0.
 	 */
-	public ReusableBagDispenserSilver(int capacity) {
+	public ReusableBagDispenser(int capacity) {
 		super();
 		if(capacity <= 0)
 			throw new InvalidArgumentSimulationException("The capacity must be a positive integer.");
@@ -33,7 +33,6 @@ public class ReusableBagDispenserSilver extends AbstractReusableBagDispenser {
 
 	@Override
 	public int getQuantityRemaining() {
-		int count = bags.size();
-		return count + random.nextInt((int)Math.ceil(count * 0.1) + 1);
+		throw new UnsupportedOperationException();
 	}
 }
