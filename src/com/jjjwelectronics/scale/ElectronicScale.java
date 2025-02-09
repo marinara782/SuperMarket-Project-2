@@ -14,14 +14,14 @@ import com.jjjwelectronics.Mass;
  * 
  * @author JJJW Electronics LLP
  */
-public class ElectronicScaleBronze extends AbstractElectronicScale {
+public class ElectronicScale extends AbstractElectronicScale {
 	private static final Mass MASS_LIMIT = new Mass(BigInteger.valueOf(1_000 * Mass.MICROGRAMS_PER_GRAM)); // 1 kg
 	private static final Mass SENSITIVITY = new Mass(BigInteger.valueOf(5 * Mass.MICROGRAMS_PER_GRAM)); // 5 g
 
 	/**
 	 * Basic constructor.
 	 */
-	public ElectronicScaleBronze() {
+	public ElectronicScale() {
 		super(MASS_LIMIT, SENSITIVITY);
 	}
 }
