@@ -10,11 +10,11 @@ package com.jjjwelectronics.card;
  * 
  * @author JJJW Electronics LLP
  */
-public class CardReaderBronze extends AbstractCardReader implements ICardReader {
+public class CardReader extends AbstractCardReader implements ICardReader {
 	/**
 	 * Basic constructor.
 	 */
-	public CardReaderBronze() {
+	public CardReader() {
 		probabilityOfTapFailure = 0.05;
 		probabilityOfInsertFailure = 0.05;
 		probabilityOfSwipeFailure = 0.5;

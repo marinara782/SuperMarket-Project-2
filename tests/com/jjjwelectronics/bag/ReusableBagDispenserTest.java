@@ -11,9 +11,6 @@ import com.jjjwelectronics.EmptyDevice;
 import com.jjjwelectronics.IDevice;
 import com.jjjwelectronics.IDeviceListener;
 import com.jjjwelectronics.OverloadedDevice;
-import com.jjjwelectronics.bag.ReusableBag;
-import com.jjjwelectronics.bag.ReusableBagDispenser;
-import com.jjjwelectronics.bag.ReusableBagDispenserListener;
 
 import ca.ucalgary.seng300.simulation.InvalidArgumentSimulationException;
 import ca.ucalgary.seng300.simulation.NullPointerSimulationException;
@@ -21,7 +18,7 @@ import powerutility.NoPowerException;
 import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
-public class ReusableBagDispenserBronzeTest {
+public class ReusableBagDispenserTest {
 	ReusableBagDispenser dispenser;
 	ReusableBag bag;
 	int found;

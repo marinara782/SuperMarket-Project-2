@@ -12,11 +12,6 @@ import org.junit.Test;
 
 import com.jjjwelectronics.IDevice;
 import com.jjjwelectronics.IDeviceListener;
-import com.jjjwelectronics.card.Card;
-import com.jjjwelectronics.card.CardReaderListener;
-import com.jjjwelectronics.card.CardReaderSilver;
-import com.jjjwelectronics.card.ChipFailureException;
-import com.jjjwelectronics.card.InvalidPINException;
 import com.jjjwelectronics.card.Card.CardData;
 
 import ca.ucalgary.seng300.simulation.NullPointerSimulationException;
@@ -26,8 +21,8 @@ import powerutility.PowerGrid;
 import powerutility.PowerSurge;
 
 @SuppressWarnings("javadoc")
-public class CardReaderSilverTest {
-	private CardReaderSilver reader;
+public class CardReaderTest {
+	private AbstractCardReader reader;
 	private Card card;
 	private Card coopMemberCard;
 	private int found;
@@ -35,15 +30,15 @@ public class CardReaderSilverTest {
 
 	@Before
 	public void setup() {
-		reader = new CardReaderSilver();
+		reader = new CardReader();
 		card = new Card("Visa", "1111", "I. P. Freely", "111", "1111", true, true);
 		coopMemberCard = new Card("Calgary Coop", "123456", "I. P. Freely", null, null, false, false);
 		found = 0;
 		data = null;
-		reader.plugIn(PowerGrid.instance());
-		reader.turnOn();
 		PowerGrid.engageUninterruptiblePowerSource();
 		PowerGrid.instance().forcePowerRestore();
+		reader.plugIn(PowerGrid.instance());
+		reader.turnOn();
 	}
 
 	@After
@@ -54,25 +49,25 @@ public class CardReaderSilverTest {
 
 	@Test(expected = NoPowerException.class)
 	public void testTapWithoutTurningOn() throws IOException {
-		reader = new CardReaderSilver();
+		reader = new CardReader();
 		reader.tap(card);
 	}
 
 	@Test(expected = NoPowerException.class)
 	public void testSwipeWithoutTurningOn() throws IOException {
-		reader = new CardReaderSilver();
+		reader = new CardReader();
 		reader.swipe(card);
 	}
 
 	@Test(expected = NoPowerException.class)
 	public void testInsertWithoutTurningOn() throws IOException {
-		reader = new CardReaderSilver();
+		reader = new CardReader();
 		reader.insert(card, "");
 	}
 
 	@Test(expected = NoPowerException.class)
 	public void testRemoveWithoutTurningOn() throws IOException {
-		reader = new CardReaderSilver();
+		reader = new CardReader();
 		reader.remove();
 	}
 
@@ -123,7 +118,7 @@ public class CardReaderSilverTest {
 
 			@Override
 			public void theDataFromACardHasBeenRead(CardData data) {
-				CardReaderSilverTest.this.data = data;
+				CardReaderTest.this.data = data;
 			}
 		});
 
@@ -134,7 +129,7 @@ public class CardReaderSilverTest {
 			try {
 				reader.tap(card);
 			}
-			catch(IOException e) {
+			catch(IOException | NoPowerException | PowerSurge e) {
 				retry = true;
 			}
 		}
@@ -214,7 +209,7 @@ public class CardReaderSilverTest {
 
 	@Test(expected = InvalidPINException.class)
 	public void testBadInsert4() throws IOException {
-		reader = new CardReaderSilver();
+		reader = new CardReader();
 		reader.plugIn(PowerGrid.instance());
 		reader.turnOn();
 		while(true) {
@@ -222,12 +217,14 @@ public class CardReaderSilverTest {
 				reader.insert(card, "");
 			}
 			catch(ChipFailureException e) {}
+
+			reader.remove();
 		}
 	}
 
 	@Test(expected = SimulationException.class)
 	public void testBadRemove() throws IOException {
-		reader = new CardReaderSilver();
+		reader = new CardReader();
 		reader.plugIn(PowerGrid.instance());
 		reader.turnOn();
 		reader.remove();
@@ -279,7 +276,7 @@ public class CardReaderSilverTest {
 
 			@Override
 			public void theDataFromACardHasBeenRead(CardData data) {
-				CardReaderSilverTest.this.data = data;
+				CardReaderTest.this.data = data;
 			}
 		});
 
@@ -339,7 +336,7 @@ public class CardReaderSilverTest {
 
 			@Override
 			public void theDataFromACardHasBeenRead(CardData data) {
-				CardReaderSilverTest.this.data = data;
+				CardReaderTest.this.data = data;
 			}
 		});
 
@@ -353,13 +350,14 @@ public class CardReaderSilverTest {
 				reader.insert(card, localPin);
 				succeeded = true;
 			}
-			catch(IOException | NoPowerException | PowerSurge e) {
+			catch(IOException e) {
 				try {
 					// Temporarily deregister the listener so the remove() does not cause failure
 					CardReaderListener listener = reader.listeners().get(0);
 					reader.deregister(listener);
 					reader.remove();
 					reader.register(listener);
+					found = 0;
 				}
 				catch(NullPointerSimulationException e2) {}
 			}
@@ -423,7 +421,7 @@ public class CardReaderSilverTest {
 			try {
 				reader.insert(coopMemberCard, null);
 			}
-			catch(IOException | PowerSurge | NoPowerException e) {}
+			catch(IOException e) {}
 
 			reader.remove();
 		}
@@ -438,7 +436,7 @@ public class CardReaderSilverTest {
 				reader.insert(card, "1111");
 				break;
 			}
-			catch(ChipFailureException | PowerSurge | NoPowerException e) {}
+			catch(ChipFailureException e) {}
 
 		reader.insert(coopMemberCard, null);
 	}
