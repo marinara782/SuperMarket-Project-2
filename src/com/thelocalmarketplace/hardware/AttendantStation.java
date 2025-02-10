@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.jjjwelectronics.keyboard.USKeyboardQWERTY;
-import com.jjjwelectronics.screen.TouchScreenBronze;
+import com.jjjwelectronics.screen.TouchScreen;
 
 import powerutility.PowerGrid;
 
@@ -27,7 +27,7 @@ public class AttendantStation {
 	 * Represents a touch screen display on which there is a graphical user
 	 * interface.
 	 */
-	public final TouchScreenBronze screen;
+	public final TouchScreen screen;
 	/**
 	 * Represents a physical keyboard.
 	 */
@@ -39,7 +39,7 @@ public class AttendantStation {
 	 * Creates a supervisor station.
 	 */
 	public AttendantStation() {
-		screen = new TouchScreenBronze();
+		screen = new TouchScreen();
 		supervisedStations = new ArrayList<ISelfCheckoutStation>();
 		keyboard = new USKeyboardQWERTY();
 	}
@@ -95,7 +95,7 @@ public class AttendantStation {
 	 * @return true, if the indicated station was successfully removed from
 	 *             supervision; otherwise, false.
 	 */
-	public synchronized boolean remove(SelfCheckoutStationBronze station) {
+	public synchronized boolean remove(SelfCheckoutStation station) {
 		boolean result = supervisedStations.remove(station);
 
 		if(result) {

@@ -15,7 +15,7 @@ import powerutility.NoPowerException;
  *            
  * @author TDC, Inc.
  */
-public final class CoinDispenserGold extends AbstractCoinDispenser implements Sink<Coin> {
+public final class CoinDispenser extends AbstractCoinDispenser implements Sink<Coin> {
 	/**
 	 * Represents the input source of this dispenser.
 	 */
@@ -30,7 +30,7 @@ public final class CoinDispenserGold extends AbstractCoinDispenser implements Si
 	 * @throws SimulationException
 	 *             if capacity is not positive.
 	 */
-	public CoinDispenserGold(int capacity) {
+	public CoinDispenser(int capacity) {
 		super(capacity);
 	}
 

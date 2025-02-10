@@ -10,19 +10,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.thelocalmarketplace.hardware.AttendantStation;
-import com.thelocalmarketplace.hardware.SelfCheckoutStationBronze;
+import com.thelocalmarketplace.hardware.SelfCheckoutStation;
 
 import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
 public class AttendantStationTest {
 	private AttendantStation supervisionStation;
-	private SelfCheckoutStationBronze station;
+	private SelfCheckoutStation station;
 	private Currency CAD = Currency.getInstance(Locale.CANADA);
 
 	@Before
 	public void setup() {
-		SelfCheckoutStationBronze.resetConfigurationToDefaults();
+		SelfCheckoutStation.resetConfigurationToDefaults();
 		supervisionStation = new AttendantStation();
 	}
 
@@ -34,13 +34,13 @@ public class AttendantStationTest {
 
 	@Test
 	public void testAddAndRemove() {
-		SelfCheckoutStationBronze.configureCurrency(CAD);
-		SelfCheckoutStationBronze.configureBanknoteDenominations(new BigDecimal[] { BigDecimal.ONE });
-		SelfCheckoutStationBronze.configureCoinDenominations(new BigDecimal[] { BigDecimal.ONE });
-		SelfCheckoutStationBronze.configureScaleMaximumWeight(10.0);
-		SelfCheckoutStationBronze.configureScaleSensitivity(1.0);
+		SelfCheckoutStation.configureCurrency(CAD);
+		SelfCheckoutStation.configureBanknoteDenominations(new BigDecimal[] { BigDecimal.ONE });
+		SelfCheckoutStation.configureCoinDenominations(new BigDecimal[] { BigDecimal.ONE });
+		SelfCheckoutStation.configureScaleMaximumWeight(10.0);
+		SelfCheckoutStation.configureScaleSensitivity(1.0);
 
-		station = new SelfCheckoutStationBronze();
+		station = new SelfCheckoutStation();
 
 		supervisionStation.add(station);
 		assertEquals(1, supervisionStation.supervisedStationCount());
@@ -58,13 +58,13 @@ public class AttendantStationTest {
 
 	@Test(expected = IllegalStateException.class)
 	public void testBadAdd2() {
-		SelfCheckoutStationBronze.configureCurrency(CAD);
-		SelfCheckoutStationBronze.configureBanknoteDenominations(new BigDecimal[] { BigDecimal.ONE });
-		SelfCheckoutStationBronze.configureCoinDenominations(new BigDecimal[] { BigDecimal.ONE });
-		SelfCheckoutStationBronze.configureScaleMaximumWeight(10.0);
-		SelfCheckoutStationBronze.configureScaleSensitivity(1.0);
+		SelfCheckoutStation.configureCurrency(CAD);
+		SelfCheckoutStation.configureBanknoteDenominations(new BigDecimal[] { BigDecimal.ONE });
+		SelfCheckoutStation.configureCoinDenominations(new BigDecimal[] { BigDecimal.ONE });
+		SelfCheckoutStation.configureScaleMaximumWeight(10.0);
+		SelfCheckoutStation.configureScaleSensitivity(1.0);
 
-		station = new SelfCheckoutStationBronze();
+		station = new SelfCheckoutStation();
 
 		supervisionStation.add(station);
 		supervisionStation.add(station);

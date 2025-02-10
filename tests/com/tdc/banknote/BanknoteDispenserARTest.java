@@ -20,7 +20,7 @@ import com.tdc.NoCashAvailableException;
 import com.tdc.StandardSinkStub;
 import com.tdc.banknote.AbstractBanknoteDispenser;
 import com.tdc.banknote.Banknote;
-import com.tdc.banknote.BanknoteDispenserGold;
+import com.tdc.banknote.BanknoteDispenser;
 import com.tdc.banknote.BanknoteDispenserObserver;
 import com.tdc.banknote.BanknoteInsertionSlot;
 import com.tdc.banknote.IBanknoteDispenser;
@@ -32,14 +32,14 @@ import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
 public class BanknoteDispenserARTest {
-	BanknoteDispenserGold dispenser;
+	BanknoteDispenser dispenser;
 	Currency currency = Currency.getInstance(Locale.CANADA);
 	Banknote banknote;
 	int found;
 
 	@Before
 	public void setup() {
-		dispenser = new BanknoteDispenserGold();
+		dispenser = new BanknoteDispenser();
 		banknote = new Banknote(currency, BigDecimal.ONE);
 		found = 0;
 		good = 0;
@@ -283,7 +283,7 @@ public class BanknoteDispenserARTest {
 
 	@Test
 	public void testEjectWithoutEmptying() throws CashOverloadException, NoCashAvailableException, DisabledException {
-		dispenser = new BanknoteDispenserGold();
+		dispenser = new BanknoteDispenser();
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		Banknote banknote = new Banknote(currency, BigDecimal.ONE);
@@ -408,7 +408,7 @@ public class BanknoteDispenserARTest {
 
 	@Test(expected = CashOverloadException.class)
 	public void testReceiveTooMuch() throws CashOverloadException, DisabledException {
-		dispenser = new BanknoteDispenserGold();
+		dispenser = new BanknoteDispenser();
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.attach(new BanknoteDispenserObserver() {

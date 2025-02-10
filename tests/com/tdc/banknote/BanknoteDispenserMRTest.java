@@ -25,12 +25,12 @@ import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
 public class BanknoteDispenserMRTest {
-	private BanknoteDispenserBronze dispenser;
+	private BanknoteDispenser dispenser;
 	private Currency currency = Currency.getInstance(Locale.CANADA);
 
 	@Before
 	public void setup() {
-		dispenser = new BanknoteDispenserBronze();
+		dispenser = new BanknoteDispenser();
 		good = 0;
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
@@ -271,7 +271,7 @@ public class BanknoteDispenserMRTest {
 
 	@Test
 	public void testEjectWithoutEmptying() throws CashOverloadException, NoCashAvailableException, DisabledException {
-		dispenser = new BanknoteDispenserBronze();
+		dispenser = new BanknoteDispenser();
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		Banknote banknote = new Banknote(currency, BigDecimal.ONE);

@@ -21,10 +21,6 @@ import com.tdc.IComponentObserver;
 import com.tdc.NoCashAvailableException;
 import com.tdc.StandardSinkStub;
 import com.tdc.StandardSourceStub;
-import com.tdc.coin.Coin;
-import com.tdc.coin.CoinDispenserGold;
-import com.tdc.coin.CoinDispenserObserver;
-import com.tdc.coin.ICoinDispenser;
 
 import ca.ucalgary.seng300.simulation.NullPointerSimulationException;
 import ca.ucalgary.seng300.simulation.SimulationException;
@@ -32,13 +28,13 @@ import powerutility.NoPowerException;
 import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
-public class CoinDispenserGoldTest {
-	private CoinDispenserGold dispenser;
+public class CoinDispenserTest {
+	private CoinDispenser dispenser;
 	private Currency currency = Currency.getInstance(Locale.CANADA);
 
 	@Before
 	public void setup() {
-		dispenser = new CoinDispenserGold(1);
+		dispenser = new CoinDispenser(1);
 		found = 0;
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
@@ -53,7 +49,7 @@ public class CoinDispenserGoldTest {
 
 	@Test(expected = SimulationException.class)
 	public void testBadLoad() throws SimulationException, CashOverloadException {
-		dispenser = new CoinDispenserGold(1);
+		dispenser = new CoinDispenser(1);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.load((Coin)null);
@@ -61,7 +57,7 @@ public class CoinDispenserGoldTest {
 
 	@Test(expected = SimulationException.class)
 	public void testBadLoad3() throws SimulationException, CashOverloadException {
-		dispenser = new CoinDispenserGold(1);
+		dispenser = new CoinDispenser(1);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.load((Coin)null);
@@ -74,7 +70,7 @@ public class CoinDispenserGoldTest {
 
 	@Test(expected = SimulationException.class)
 	public void testBadAccept2() throws CashOverloadException, DisabledException {
-		dispenser = new CoinDispenserGold(1);
+		dispenser = new CoinDispenser(1);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.receive(null);
@@ -82,7 +78,7 @@ public class CoinDispenserGoldTest {
 
 	@Test(expected = NoCashAvailableException.class)
 	public void testBadEmit() throws CashOverloadException, DisabledException, NoCashAvailableException {
-		dispenser = new CoinDispenserGold(1);
+		dispenser = new CoinDispenser(1);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.emit();
@@ -90,7 +86,7 @@ public class CoinDispenserGoldTest {
 
 	@Test(expected = SimulationException.class)
 	public void testBadCreate() {
-		new CoinDispenserGold(0);
+		new CoinDispenser(0);
 	}
 
 	@Test
@@ -161,7 +157,7 @@ public class CoinDispenserGoldTest {
 
 	@Test
 	public void testGoodAccept2() throws CashOverloadException, DisabledException {
-		dispenser = new CoinDispenserGold(2);
+		dispenser = new CoinDispenser(2);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.attach(new CoinDispenserObserver() {
@@ -243,7 +239,7 @@ public class CoinDispenserGoldTest {
 	@Test
 	public void testEmitUntilEmpty() throws CashOverloadException, NoCashAvailableException, DisabledException {
 		Coin coin = new Coin(currency, BigDecimal.ONE);
-		dispenser = new CoinDispenserGold(1);
+		dispenser = new CoinDispenser(1);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.load(coin);
@@ -312,7 +308,7 @@ public class CoinDispenserGoldTest {
 	@Test
 	public void testEmitWithoutBeingEmpty() throws CashOverloadException, NoCashAvailableException, DisabledException {
 		Coin coin = new Coin(currency, BigDecimal.ONE);
-		dispenser = new CoinDispenserGold(2);
+		dispenser = new CoinDispenser(2);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.attach(new CoinDispenserObserver() {
@@ -431,7 +427,7 @@ public class CoinDispenserGoldTest {
 	@Test(expected = CashOverloadException.class)
 	public void testTooMuchCash() throws SimulationException, CashOverloadException {
 		Coin coin = new Coin(currency, BigDecimal.ONE);
-		dispenser = new CoinDispenserGold(1);
+		dispenser = new CoinDispenser(1);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.load(coin, coin);
@@ -440,7 +436,7 @@ public class CoinDispenserGoldTest {
 	@Test
 	public void testUnload() throws SimulationException, CashOverloadException {
 		Coin coin = new Coin(currency, BigDecimal.ONE);
-		dispenser = new CoinDispenserGold(2);
+		dispenser = new CoinDispenser(2);
 		dispenser.connect(PowerGrid.instance());
 		dispenser.activate();
 		dispenser.load(coin, coin);

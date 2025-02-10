@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.jjjwelectronics.IDevice;
 import com.jjjwelectronics.IDeviceListener;
-import com.jjjwelectronics.screen.TouchScreenBronze;
+import com.jjjwelectronics.screen.TouchScreen;
 import com.jjjwelectronics.screen.TouchScreenListener;
 
 import powerutility.NoPowerException;
@@ -22,12 +22,12 @@ import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
 public class TouchScreenTest {
-	private TouchScreenBronze screen;
+	private TouchScreen screen;
 	private volatile int found;
 
 	@Before
 	public void setup() {
-		screen = new TouchScreenBronze();
+		screen = new TouchScreen();
 		screen.register(new TouchScreenListener() {
 			@Override
 			public void aDeviceHasBeenEnabled(IDevice<? extends IDeviceListener> device) {}
@@ -85,7 +85,7 @@ public class TouchScreenTest {
 
 	@Test(expected = NoPowerException.class)
 	public void testSetVisibleWithoutTurningOn() {
-		screen = new TouchScreenBronze();
+		screen = new TouchScreen();
 
 		screen.plugIn(PowerGrid.instance());
 		screen.turnOff();
@@ -98,7 +98,7 @@ public class TouchScreenTest {
 
 	@Test
 	public void testSetInvisibleWithoutTurningOn() {
-		screen = new TouchScreenBronze();
+		screen = new TouchScreen();
 		screen.plugIn(PowerGrid.instance());
 		screen.turnOn();
 
@@ -110,7 +110,7 @@ public class TouchScreenTest {
 
 	@Test
 	public void testSetInvisibleWithTurningOn() {
-		screen = new TouchScreenBronze();
+		screen = new TouchScreen();
 
 		screen.plugIn(PowerGrid.instance());
 		screen.turnOn();
@@ -123,7 +123,7 @@ public class TouchScreenTest {
 
 	@Test
 	public void testSetVisibleWithTurningOn() {
-		screen = new TouchScreenBronze();
+		screen = new TouchScreen();
 
 		screen.plugIn(PowerGrid.instance());
 		screen.turnOn();
