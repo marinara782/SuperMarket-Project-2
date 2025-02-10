@@ -12,7 +12,7 @@ import com.tdc.Sink;
  *            
  * @author TDC, Inc.
  */
-public final class BanknoteDispenserGold extends AbstractBanknoteDispenser implements Sink<Banknote> {
+public final class BanknoteDispenser extends AbstractBanknoteDispenser implements Sink<Banknote> {
 	private static final int MAX_CAPACITY = 1000;
 
 	/**
@@ -23,7 +23,7 @@ public final class BanknoteDispenserGold extends AbstractBanknoteDispenser imple
 	/**
 	 * Creates a banknote dispenser that can be automatically refilled.
 	 */
-	public BanknoteDispenserGold() {
+	public BanknoteDispenser() {
 		super(MAX_CAPACITY);
 	}
 

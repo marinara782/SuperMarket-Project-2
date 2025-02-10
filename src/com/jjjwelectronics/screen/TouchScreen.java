@@ -16,14 +16,14 @@ import powerutility.NoPowerException;
  * 
  * @author JJJW Electronics LLP
  */
-public final class TouchScreenBronze extends AbstractTouchScreen {
+public final class TouchScreen extends AbstractTouchScreen {
 	private JFrame frame;
 	private volatile boolean ready = false;
 
 	/**
 	 * Creates a touch screen. The frame herein will initially be invisible.
 	 */
-	public TouchScreenBronze() {
+	public TouchScreen() {
 		super();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override

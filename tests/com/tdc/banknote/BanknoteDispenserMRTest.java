@@ -18,12 +18,6 @@ import com.tdc.IComponent;
 import com.tdc.IComponentObserver;
 import com.tdc.NoCashAvailableException;
 import com.tdc.StandardSinkStub;
-import com.tdc.banknote.AbstractBanknoteDispenser;
-import com.tdc.banknote.Banknote;
-import com.tdc.banknote.BanknoteDispenserBronze;
-import com.tdc.banknote.BanknoteDispenserObserver;
-import com.tdc.banknote.BanknoteInsertionSlot;
-import com.tdc.banknote.IBanknoteDispenser;
 
 import ca.ucalgary.seng300.simulation.SimulationException;
 import powerutility.NoPowerException;
