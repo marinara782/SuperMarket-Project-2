@@ -9,11 +9,11 @@ package com.jjjwelectronics.scanner;
  * 
  * @author JJJW Electronics LLP
  */
-public class BarcodeScannerSilver extends AbstractBarcodeScanner {
+public class BarcodeScanner extends AbstractBarcodeScanner {
 	/**
 	 * Create a barcode scanner.
 	 */
-	public BarcodeScannerSilver() {
+	public BarcodeScanner() {
 		probabilityOfFailedScan = 10;
 	}
 }

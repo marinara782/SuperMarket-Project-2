@@ -17,11 +17,6 @@ import com.jjjwelectronics.IllegalDigitException;
 import com.jjjwelectronics.Mass;
 import com.jjjwelectronics.Numeral;
 import com.jjjwelectronics.OverloadedDevice;
-import com.jjjwelectronics.scanner.Barcode;
-import com.jjjwelectronics.scanner.BarcodeScannerBronze;
-import com.jjjwelectronics.scanner.BarcodeScannerListener;
-import com.jjjwelectronics.scanner.BarcodedItem;
-import com.jjjwelectronics.scanner.IBarcodeScanner;
 
 import ca.ucalgary.seng300.simulation.InvalidArgumentSimulationException;
 import ca.ucalgary.seng300.simulation.SimulationException;
@@ -29,13 +24,13 @@ import powerutility.NoPowerException;
 import powerutility.PowerGrid;
 
 @SuppressWarnings("javadoc")
-public class BarcodeScannerBronzeTest {
+public class BarcodeScannerTest {
 	private IBarcodeScanner scanner;
 	private int found;
 
 	@Before
 	public void setup() {
-		scanner = new BarcodeScannerBronze();
+		scanner = new BarcodeScanner();
 		found = 0;
 		scanner.plugIn(PowerGrid.instance());
 		scanner.turnOn();
@@ -55,7 +50,7 @@ public class BarcodeScannerBronzeTest {
 
 	@Test(expected = SimulationException.class)
 	public void testBadScan2() throws OverloadedDevice, DisabledDevice {
-		scanner = new BarcodeScannerBronze();
+		scanner = new BarcodeScanner();
 		scanner.plugIn(PowerGrid.instance());
 		scanner.turnOn();
 		scanner.scan(null);
@@ -63,7 +58,7 @@ public class BarcodeScannerBronzeTest {
 
 	@Test(expected = NoPowerException.class)
 	public void testScanWithoutTurningOn() throws OverloadedDevice, DisabledDevice {
-		scanner = new BarcodeScannerBronze();
+		scanner = new BarcodeScanner();
 		scanner.scan(null);
 	}
 
