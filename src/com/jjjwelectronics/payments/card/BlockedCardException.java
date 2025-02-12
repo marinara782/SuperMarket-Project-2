@@ -1,4 +1,4 @@
-package com.jjjwelectronics.card;
+package com.jjjwelectronics.payments.card;
 
 /**
  * Represents exceptions arising from a blocked card.

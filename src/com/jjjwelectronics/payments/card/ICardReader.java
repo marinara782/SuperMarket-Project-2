@@ -1,9 +1,9 @@
-package com.jjjwelectronics.card;
+package com.jjjwelectronics.payments.card;
 
 import java.io.IOException;
 
 import com.jjjwelectronics.IDevice;
-import com.jjjwelectronics.card.Card.CardData;
+import com.jjjwelectronics.payments.card.Card.CardData;
 
 import ca.ucalgary.seng300.simulation.NullPointerSimulationException;
 import ca.ucalgary.seng300.simulation.SimulationException;

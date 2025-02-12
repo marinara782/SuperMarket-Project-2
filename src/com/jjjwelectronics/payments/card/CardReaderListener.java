@@ -1,7 +1,7 @@
-package com.jjjwelectronics.card;
+package com.jjjwelectronics.payments.card;
 
 import com.jjjwelectronics.IDeviceListener;
-import com.jjjwelectronics.card.Card.CardData;
+import com.jjjwelectronics.payments.card.Card.CardData;
 
 /**
  * Listens for events emanating from the card reader.

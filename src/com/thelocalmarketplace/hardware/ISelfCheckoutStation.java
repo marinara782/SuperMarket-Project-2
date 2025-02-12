@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.jjjwelectronics.bag.IReusableBagDispenser;
-import com.jjjwelectronics.card.ICardReader;
+import com.jjjwelectronics.payments.card.ICardReader;
 import com.jjjwelectronics.printer.IReceiptPrinter;
 import com.jjjwelectronics.scale.IElectronicScale;
 import com.jjjwelectronics.scanner.IBarcodeScanner;

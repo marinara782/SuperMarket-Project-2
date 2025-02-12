@@ -1,4 +1,4 @@
-package com.jjjwelectronics.card;
+package com.jjjwelectronics.payments.card;
 
 /**
  * Represents the card reader, capable of tap, chip insert, and swipe. Either

@@ -1,32 +1,20 @@
 package com.thelocalmarketplace.hardware;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Currency;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.sound.sampled.AudioSystem;
 
-import com.jjjwelectronics.bag.IReusableBagDispenser;
 import com.jjjwelectronics.bag.ReusableBagDispenser;
-import com.jjjwelectronics.card.CardReader;
+import com.jjjwelectronics.payments.card.CardReader;
 import com.jjjwelectronics.printer.ReceiptPrinter;
 import com.jjjwelectronics.scale.ElectronicScale;
-import com.jjjwelectronics.scale.IElectronicScale;
 import com.jjjwelectronics.scanner.BarcodeScanner;
 import com.jjjwelectronics.screen.TouchScreen;
 import com.tdc.Sink;
 import com.tdc.banknote.*;
 import com.tdc.coin.*;
-
-import ca.ucalgary.seng300.simulation.InvalidArgumentSimulationException;
-import ca.ucalgary.seng300.simulation.NullPointerSimulationException;
-import powerutility.PowerGrid;
 
 /**
  * Represents the overall self-checkout station.
