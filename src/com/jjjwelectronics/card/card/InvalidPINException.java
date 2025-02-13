@@ -1,4 +1,4 @@
-package com.jjjwelectronics.payments.card;
+package com.jjjwelectronics.card.card;
 
 /**
  * Represents exceptions arising from entry of an invalid PIN.

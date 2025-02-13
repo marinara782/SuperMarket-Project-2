@@ -8,12 +8,12 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jjjwelectronics.payments.card.BlockedCardException;
-import com.jjjwelectronics.payments.card.Card;
-import com.jjjwelectronics.payments.card.InvalidPINException;
-import com.jjjwelectronics.payments.card.Card.CardInsertData;
-import com.jjjwelectronics.payments.card.Card.CardSwipeData;
-import com.jjjwelectronics.payments.card.Card.CardTapData;
+import com.jjjwelectronics.card.card.BlockedCardException;
+import com.jjjwelectronics.card.card.Card;
+import com.jjjwelectronics.card.card.InvalidPINException;
+import com.jjjwelectronics.card.card.Card.CardInsertData;
+import com.jjjwelectronics.card.card.Card.CardSwipeData;
+import com.jjjwelectronics.card.card.Card.CardTapData;
 
 import ca.ucalgary.seng300.simulation.SimulationException;
 

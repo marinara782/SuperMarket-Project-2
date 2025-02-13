@@ -10,7 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import com.jjjwelectronics.bag.IReusableBagDispenser;
-import com.jjjwelectronics.payments.card.ICardReader;
+import com.jjjwelectronics.card.card.ICardReader;
 import com.jjjwelectronics.printer.IReceiptPrinter;
 import com.jjjwelectronics.scale.IElectronicScale;
 import com.jjjwelectronics.scanner.IBarcodeScanner;
