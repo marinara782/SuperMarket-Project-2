@@ -1,4 +1,4 @@
-package com.jjjwelectronics.payments.card;
+package com.jjjwelectronics.card.card;
 
 import java.io.IOException;
 import java.util.Random;

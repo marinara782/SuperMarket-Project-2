@@ -7,7 +7,7 @@ import java.util.Map;
 import javax.sound.sampled.AudioSystem;
 
 import com.jjjwelectronics.bag.ReusableBagDispenser;
-import com.jjjwelectronics.payments.card.CardReader;
+import com.jjjwelectronics.card.card.CardReader;
 import com.jjjwelectronics.printer.ReceiptPrinter;
 import com.jjjwelectronics.scale.ElectronicScale;
 import com.jjjwelectronics.scanner.BarcodeScanner;

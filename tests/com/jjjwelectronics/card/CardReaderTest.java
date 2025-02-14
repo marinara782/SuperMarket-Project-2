@@ -6,14 +6,14 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import com.jjjwelectronics.payments.card.*;
+import com.jjjwelectronics.card.card.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.jjjwelectronics.IDevice;
 import com.jjjwelectronics.IDeviceListener;
-import com.jjjwelectronics.payments.card.Card.CardData;
+import com.jjjwelectronics.card.card.Card.CardData;
 
 import ca.ucalgary.seng300.simulation.NullPointerSimulationException;
 import ca.ucalgary.seng300.simulation.SimulationException;
