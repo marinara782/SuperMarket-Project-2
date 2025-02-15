@@ -1,4 +1,4 @@
-package com.jjjwelectronics.card.card;
+package com.jjjwelectronics.card;
 
 import java.io.IOException;
 

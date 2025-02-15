@@ -1,4 +1,4 @@
-package com.jjjwelectronics.card.card;
+package com.jjjwelectronics.card;
 
 import java.io.IOException;
 import java.util.Random;
@@ -34,7 +34,7 @@ public final class AppPayments {
     /**
      * Create a card instance.
      *
-     * @param type
+     * @param accountType
      *            The type of the account.
      * @param password
      *            The password of the account. This has to be a string of digits.
@@ -45,8 +45,8 @@ public final class AppPayments {
      * @throws SimulationException
      *             If hasChip is true but pin is null.
      */
-    public AppPayments(String type, String password, String accountName, boolean hasFaceID) {
-        if(type == null)
+    public AppPayments(String accountType, String password, String accountName, boolean hasFaceID) {
+        if(accountType == null)
             throw new NullPointerSimulationException("type");
 
         if(password == null)
@@ -55,10 +55,11 @@ public final class AppPayments {
         if(accountName == null)
             throw new NullPointerSimulationException("accountName");
 
-        this.accountType = type;
+        this.accountType = accountType;
         this.password = password;
         this.accountName = accountName;
         this.hasFaceID = hasFaceID;
+        this.isBlocked = false;
     }
 
     private static final Random random = new Random(0);
@@ -103,14 +104,11 @@ public final class AppPayments {
     public final synchronized PaymentTapData tap(String pass) throws IOException {
         if(isBlocked)
             throw new BlockedCardException();
-
         if(hasFaceID) {
             if(random.nextDouble() <= PROBABILITY_OF_TAP_FAILURE)
                 throw new ChipFailureException();
-
             return new PaymentTapData(pass);
         }
-
         return null;
     }
 
@@ -144,8 +142,8 @@ public final class AppPayments {
      * The data from tapping the payment method
      */
     public final class PaymentTapData implements PaymentData {
-        PaymentTapData(String pin) throws InvalidPINException {
-            if(testPassword(pin))
+        PaymentTapData(String pass) throws InvalidPINException {
+            if(!testPassword(pass))
                 throw new InvalidPINException();
         }
         @Override
